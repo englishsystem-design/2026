@@ -102,7 +102,7 @@
   // Anda men-deploy backend (Deploy > New deployment > Web app).
   // Contoh: 'https://script.google.com/macros/s/AKfycb.../exec'
   // ============================================================
-  const API_URL = 'GANTI_DENGAN_URL_WEB_APP_APPS_SCRIPT_ANDA';
+  const API_URL = 'https://script.google.com/macros/s/AKfycbxBDyZ-lMomY6m96HbhKj1knCxIfrtRtkXIYiADpXztzFiX4KWzn5FciDb27CBaKMsj/exec';
 
   /**
    * Pemanggil API ke backend Google Apps Script lewat HTTP POST.
