@@ -1,0 +1,361 @@
+/* ============================================================
+     STYLE.HTML
+     Design System Aplikasi Wali Kelas — terinspirasi sekolah modern
+     Jepang. Bersih, elegan, minimalis, premium.
+     Berisi 2 bagian: (1) BAGIAN STYLE UTAMA — warna, tipografi,
+     layout, komponen; (2) BAGIAN TEMA GELAP — variabel dark mode.
+     ============================================================ */
+
+  /* ===================== BAGIAN: STYLE UTAMA ===================== */
+
+  @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+
+  :root{
+    /* Palet warna dasar (light mode default, ditimpa bagian Tema Gelap di bawah untuk dark mode) */
+    --c-primary:#1B3A57;       /* Ai - indigo tinta */
+    --c-primary-light:#2C4A6E;
+    --c-primary-dark:#12283D;
+    --c-accent:#C1440E;        /* Shu - merah hanko, dipakai sangat terbatas */
+    --c-success:#5C7C5A;       /* Sage - hijau matcha */
+    --c-warning:#B8863F;
+    --c-danger:#B3392B;
+    --c-info:#3E6B8A;
+
+    --c-bg:#FAF9F6;            /* Washi - kertas cream */
+    --c-surface:#FFFFFF;
+    --c-surface-2:#F3F1EB;
+    --c-border:#E7E3D9;
+    --c-text:#1C1C1E;
+    --c-text-muted:#6B6B65;
+    --c-text-inverse:#FFFFFF;
+
+    --radius-sm:6px;
+    --radius-md:10px;
+    --radius-lg:16px;
+    --shadow-sm:0 1px 2px rgba(28,28,30,.05), 0 1px 1px rgba(28,28,30,.03);
+    --shadow-md:0 4px 16px rgba(28,28,30,.06);
+    --shadow-lg:0 12px 32px rgba(28,28,30,.10);
+
+    --sidebar-width:264px;
+    --navbar-height:68px;
+  }
+
+  *{ box-sizing:border-box; }
+
+  html,body{
+    height:100%;
+    background:var(--c-bg);
+    color:var(--c-text);
+    font-family:'Poppins',-apple-system,BlinkMacSystemFont,sans-serif;
+    font-weight:400;
+    letter-spacing:.1px;
+  }
+
+  body{ overflow-x:hidden; }
+
+  h1,h2,h3,h4,h5,h6{ font-weight:600; letter-spacing:.1px; }
+
+  a{ text-decoration:none; }
+
+  ::-webkit-scrollbar{ width:8px; height:8px; }
+  ::-webkit-scrollbar-thumb{ background:var(--c-border); border-radius:4px; }
+  ::-webkit-scrollbar-thumb:hover{ background:#D3CDBD; }
+
+  /* ============================== LOADING SCREEN ============================== */
+  #wk-loading-screen{
+    position:fixed; inset:0; background:var(--c-bg); z-index:9999;
+    display:flex; align-items:center; justify-content:center; flex-direction:column; gap:16px;
+  }
+  .wk-spinner{
+    width:44px; height:44px; border-radius:50%;
+    border:3px solid var(--c-border); border-top-color:var(--c-primary);
+    animation:wk-spin 0.8s linear infinite;
+  }
+  @keyframes wk-spin{ to{ transform:rotate(360deg); } }
+
+  /* ============================== LOGIN PAGE ============================== */
+  #wk-login-page{
+    min-height:100vh; display:flex; align-items:center; justify-content:center;
+    background:
+      radial-gradient(circle at 15% 20%, rgba(27,58,87,.05) 0%, transparent 45%),
+      radial-gradient(circle at 85% 80%, rgba(193,68,14,.04) 0%, transparent 45%),
+      var(--c-bg);
+    padding:24px;
+  }
+  .wk-login-card{
+    width:100%; max-width:920px; background:var(--c-surface);
+    border-radius:var(--radius-lg); box-shadow:var(--shadow-lg);
+    overflow:hidden; display:grid; grid-template-columns:1fr 1fr;
+    border:1px solid var(--c-border);
+  }
+  .wk-login-brand{
+    background:linear-gradient(160deg,var(--c-primary) 0%,var(--c-primary-dark) 100%);
+    color:#fff; padding:56px 44px; display:flex; flex-direction:column; justify-content:center; position:relative; overflow:hidden;
+  }
+  .wk-login-brand::after{
+    content:''; position:absolute; width:280px; height:280px; border-radius:50%;
+    border:1px solid rgba(255,255,255,.12); right:-90px; bottom:-90px;
+  }
+  .wk-login-brand::before{
+    content:''; position:absolute; width:180px; height:180px; border-radius:50%;
+    border:1px solid rgba(255,255,255,.10); right:-40px; bottom:-40px;
+  }
+  .wk-login-brand h1{ font-size:1.7rem; margin-bottom:10px; }
+  .wk-login-brand p{ opacity:.8; font-size:.92rem; line-height:1.6; }
+  .wk-login-form-wrap{ padding:56px 44px; display:flex; flex-direction:column; justify-content:center; }
+  .wk-login-form-wrap h2{ font-size:1.3rem; margin-bottom:4px; }
+  .wk-login-form-wrap .wk-sub{ color:var(--c-text-muted); font-size:.87rem; margin-bottom:28px; }
+
+  @media (max-width:800px){
+    .wk-login-card{ grid-template-columns:1fr; }
+    .wk-login-brand{ padding:36px 28px; }
+    .wk-login-form-wrap{ padding:36px 28px; }
+  }
+
+  /* ============================== APP SHELL ============================== */
+  #wk-app-shell{ display:flex; min-height:100vh; }
+
+  .wk-sidebar{
+    width:var(--sidebar-width); flex-shrink:0; background:var(--c-surface);
+    border-right:1px solid var(--c-border); position:fixed; top:0; bottom:0; left:0;
+    display:flex; flex-direction:column; z-index:1030; transition:transform .25s ease;
+  }
+  .wk-sidebar-brand{
+    height:var(--navbar-height); display:flex; align-items:center; gap:12px; padding:0 22px;
+    border-bottom:1px solid var(--c-border); flex-shrink:0;
+  }
+  .wk-sidebar-brand .wk-logo-dot{
+    width:36px; height:36px; border-radius:10px; background:var(--c-primary);
+    display:flex; align-items:center; justify-content:center; color:#fff; font-weight:600; flex-shrink:0;
+  }
+  .wk-sidebar-brand-text{ font-weight:600; font-size:.95rem; line-height:1.2; }
+  .wk-sidebar-brand-text small{ display:block; font-weight:400; color:var(--c-text-muted); font-size:.72rem; }
+
+  .wk-sidebar-nav{ flex:1; overflow-y:auto; padding:18px 12px; }
+  .wk-nav-section-label{
+    font-size:.68rem; text-transform:uppercase; letter-spacing:.09em; color:var(--c-text-muted);
+    padding:14px 12px 6px;
+  }
+  .wk-nav-item{
+    display:flex; align-items:center; gap:12px; padding:10px 12px; border-radius:var(--radius-sm);
+    color:var(--c-text); font-size:.87rem; cursor:pointer; margin-bottom:2px; position:relative;
+    transition:background .15s ease, color .15s ease;
+  }
+  .wk-nav-item .material-icons{ font-size:20px; color:var(--c-text-muted); transition:color .15s ease; }
+  .wk-nav-item:hover{ background:var(--c-surface-2); }
+  .wk-nav-item.active{ background:var(--c-primary); color:#fff; }
+  .wk-nav-item.active .material-icons{ color:#fff; }
+
+  .wk-sidebar-footer{ padding:14px 20px; border-top:1px solid var(--c-border); font-size:.72rem; color:var(--c-text-muted); flex-shrink:0; }
+
+  .wk-main{ flex:1; margin-left:var(--sidebar-width); display:flex; flex-direction:column; min-width:0; }
+
+  .wk-navbar{
+    height:var(--navbar-height); background:var(--c-surface); border-bottom:1px solid var(--c-border);
+    display:flex; align-items:center; justify-content:space-between; padding:0 26px; position:sticky; top:0; z-index:1020;
+  }
+  .wk-navbar-title{ font-size:1.05rem; font-weight:600; }
+  .wk-navbar-right{ display:flex; align-items:center; gap:6px; }
+  .wk-icon-btn{
+    width:40px; height:40px; border-radius:50%; display:flex; align-items:center; justify-content:center;
+    color:var(--c-text-muted); cursor:pointer; border:none; background:transparent; position:relative;
+    transition:background .15s ease;
+  }
+  .wk-icon-btn:hover{ background:var(--c-surface-2); }
+  .wk-icon-btn .wk-dot-badge{
+    position:absolute; top:6px; right:6px; width:8px; height:8px; border-radius:50%; background:var(--c-accent);
+  }
+
+  .wk-avatar{
+    width:38px; height:38px; border-radius:50%; background:var(--c-primary); color:#fff;
+    display:flex; align-items:center; justify-content:center; font-weight:600; font-size:.85rem; flex-shrink:0;
+  }
+
+  .wk-content{ padding:26px; flex:1; }
+
+  #wk-sidebar-toggle{ display:none; }
+
+  @media (max-width:992px){
+    .wk-sidebar{ transform:translateX(-100%); box-shadow:var(--shadow-lg); }
+    .wk-sidebar.wk-open{ transform:translateX(0); }
+    .wk-main{ margin-left:0; }
+    #wk-sidebar-toggle{ display:flex; }
+    .wk-content{ padding:18px; }
+  }
+
+  /* ============================== CARDS & STAT CARDS ============================== */
+  .wk-card{
+    background:var(--c-surface); border:1px solid var(--c-border); border-radius:var(--radius-md);
+    box-shadow:var(--shadow-sm); padding:22px; transition:box-shadow .2s ease, transform .2s ease;
+  }
+  .wk-card:hover{ box-shadow:var(--shadow-md); }
+  .wk-card-title{ font-size:.95rem; font-weight:600; margin-bottom:16px; display:flex; align-items:center; gap:8px; }
+  .wk-card-title .material-icons{ font-size:19px; color:var(--c-primary); }
+
+  .wk-stat-card{ display:flex; align-items:center; gap:16px; }
+  .wk-stat-icon{
+    width:50px; height:50px; border-radius:var(--radius-md); display:flex; align-items:center; justify-content:center;
+    flex-shrink:0; font-size:22px;
+  }
+  .wk-stat-value{ font-size:1.55rem; font-weight:700; line-height:1.1; }
+  .wk-stat-label{ font-size:.78rem; color:var(--c-text-muted); margin-top:2px; }
+
+  .wk-bg-primary-soft{ background:rgba(27,58,87,.09); color:var(--c-primary); }
+  .wk-bg-success-soft{ background:rgba(92,124,90,.12); color:var(--c-success); }
+  .wk-bg-warning-soft{ background:rgba(184,134,63,.13); color:var(--c-warning); }
+  .wk-bg-danger-soft{ background:rgba(179,57,43,.11); color:var(--c-danger); }
+  .wk-bg-info-soft{ background:rgba(62,107,138,.11); color:var(--c-info); }
+
+  /* ============================== BUTTONS ============================== */
+  .btn{ font-family:'Poppins',sans-serif; font-weight:500; font-size:.86rem; border-radius:var(--radius-sm); padding:.55rem 1.1rem; }
+  .btn-primary{ background:var(--c-primary); border-color:var(--c-primary); }
+  .btn-primary:hover, .btn-primary:focus{ background:var(--c-primary-light); border-color:var(--c-primary-light); }
+  .btn-outline-primary{ color:var(--c-primary); border-color:var(--c-primary); }
+  .btn-outline-primary:hover{ background:var(--c-primary); border-color:var(--c-primary); }
+  .btn-sm{ padding:.32rem .7rem; font-size:.78rem; }
+
+  /* ============================== BADGES / STATUS PILLS ============================== */
+  .wk-pill{
+    display:inline-flex; align-items:center; gap:5px; padding:3px 11px; border-radius:99px;
+    font-size:.72rem; font-weight:500;
+  }
+  .wk-pill-hadir{ background:rgba(92,124,90,.13); color:var(--c-success); }
+  .wk-pill-izin, .wk-pill-sakit{ background:rgba(62,107,138,.13); color:var(--c-info); }
+  .wk-pill-alpha{ background:rgba(179,57,43,.11); color:var(--c-danger); }
+  .wk-pill-terlambat{ background:rgba(184,134,63,.13); color:var(--c-warning); }
+  .wk-pill-tuntas{ background:rgba(92,124,90,.13); color:var(--c-success); }
+  .wk-pill-belumtuntas{ background:rgba(179,57,43,.11); color:var(--c-danger); }
+
+  /* ============================== FORMS ============================== */
+  .form-label{ font-size:.82rem; font-weight:500; margin-bottom:5px; }
+  .form-control, .form-select{
+    font-family:'Poppins',sans-serif; font-size:.87rem; border-radius:var(--radius-sm);
+    border-color:var(--c-border); padding:.55rem .8rem;
+  }
+  .form-control:focus, .form-select:focus{
+    border-color:var(--c-primary); box-shadow:0 0 0 3px rgba(27,58,87,.10);
+  }
+
+  /* ============================== TABLE / DATATABLES ============================== */
+  .wk-table-wrap table.dataTable{ font-size:.85rem; }
+  .wk-table-wrap table.dataTable thead th{
+    border-bottom:1px solid var(--c-border) !important; font-weight:600; color:var(--c-text-muted);
+    font-size:.72rem; text-transform:uppercase; letter-spacing:.05em;
+  }
+  .wk-table-wrap table.dataTable tbody td{ vertical-align:middle; border-color:var(--c-border) !important; }
+  .wk-table-wrap .dataTables_wrapper .dataTables_filter input,
+  .wk-table-wrap .dataTables_wrapper .dataTables_length select{
+    border-radius:var(--radius-sm); border:1px solid var(--c-border); padding:.35rem .6rem; font-size:.83rem;
+  }
+
+  .wk-row-action{ cursor:pointer; color:var(--c-text-muted); margin:0 3px; transition:color .15s ease; }
+  .wk-row-action:hover{ color:var(--c-primary); }
+  .wk-row-action.wk-danger:hover{ color:var(--c-danger); }
+
+  /* ============================== MODAL ============================== */
+  .modal-content{ border-radius:var(--radius-lg); border:none; box-shadow:var(--shadow-lg); }
+  .modal-header{ border-bottom:1px solid var(--c-border); padding:18px 24px; }
+  .modal-title{ font-size:1.02rem; font-weight:600; }
+  .modal-body{ padding:22px 24px; }
+  .modal-footer{ border-top:1px solid var(--c-border); padding:14px 24px; }
+
+  /* ============================== MISC ============================== */
+  .wk-fade-in{ animation:wkFadeIn .25s ease; }
+  @keyframes wkFadeIn{ from{ opacity:0; transform:translateY(6px); } to{ opacity:1; transform:none; } }
+
+  .wk-empty-state{ text-align:center; padding:50px 20px; color:var(--c-text-muted); }
+  .wk-empty-state .material-icons{ font-size:42px; opacity:.35; margin-bottom:10px; }
+
+  .wk-skeleton{ background:linear-gradient(90deg,var(--c-surface-2) 25%,#EAE6DC 37%,var(--c-surface-2) 63%); background-size:400% 100%; animation:wkSkeleton 1.4s ease infinite; border-radius:var(--radius-sm); }
+  @keyframes wkSkeleton{ 0%{ background-position:100% 50%; } 100%{ background-position:0 50%; } }
+
+  .wk-agenda-item{ display:flex; gap:12px; padding:10px 0; border-bottom:1px solid var(--c-border); }
+  .wk-agenda-item:last-child{ border-bottom:none; }
+  .wk-agenda-date{
+    width:44px; height:44px; border-radius:var(--radius-sm); background:var(--c-surface-2);
+    display:flex; flex-direction:column; align-items:center; justify-content:center; flex-shrink:0; font-size:.68rem; font-weight:600;
+  }
+
+  .wk-list-item{ display:flex; gap:12px; align-items:flex-start; padding:11px 0; border-bottom:1px solid var(--c-border); }
+  .wk-list-item:last-child{ border-bottom:none; }
+
+  /* Grid Kalender Akademik bulanan */
+  .wk-kal-grid{ display:grid; grid-template-columns:repeat(7,1fr); gap:4px; }
+  .wk-kal-header{ margin-bottom:4px; }
+  .wk-kal-header div{ text-align:center; font-size:.72rem; font-weight:600; color:var(--c-text-muted); text-transform:uppercase; padding:4px 0; }
+  .wk-kal-cell{ min-height:78px; border:1px solid var(--c-border); border-radius:var(--radius-sm); padding:6px; background:var(--c-surface); overflow:hidden; }
+  .wk-kal-cell.wk-kal-kosong{ background:transparent; border:none; }
+  .wk-kal-tanggal{ font-size:.78rem; font-weight:600; margin-bottom:4px; color:var(--c-text-muted); }
+  @media (max-width:768px){ .wk-kal-cell{ min-height:52px; font-size:.7rem; } }
+
+  /* Print styles: dipakai halaman Laporan saat tombol "Cetak PDF" (window.print) ditekan */
+  @media print{
+    .wk-sidebar, .wk-navbar, .wk-no-print{ display:none !important; }
+    .wk-main{ margin-left:0 !important; }
+    .wk-content{ padding:0 !important; }
+    body{ background:#fff !important; }
+    .wk-card{ box-shadow:none !important; border:1px solid #ccc !important; }
+  }
+
+
+  /* ===================== BAGIAN: TEMA GELAP (DARK MODE) ===================== */
+  /* Override variabel warna untuk Dark Mode.
+     Diaktifkan dengan menambahkan atribut data-theme="dark" pada <html>/<body> */
+
+  [data-theme="dark"]{
+    --c-primary:#3E6B95;
+    --c-primary-light:#4E7FAC;
+    --c-primary-dark:#2C4A6E;
+    --c-accent:#D9633A;
+    --c-success:#7CA179;
+    --c-warning:#CBA05C;
+    --c-danger:#CC5A4A;
+    --c-info:#5C8CAD;
+
+    --c-bg:#15171A;
+    --c-surface:#1D2024;
+    --c-surface-2:#25282D;
+    --c-border:#33363B;
+    --c-text:#F2F1ED;
+    --c-text-muted:#9A9992;
+    --c-text-inverse:#1C1C1E;
+
+    --shadow-sm:0 1px 2px rgba(0,0,0,.35);
+    --shadow-md:0 4px 16px rgba(0,0,0,.4);
+    --shadow-lg:0 12px 32px rgba(0,0,0,.5);
+  }
+
+  [data-theme="dark"] #wk-login-page{
+    background:
+      radial-gradient(circle at 15% 20%, rgba(62,107,149,.12) 0%, transparent 45%),
+      radial-gradient(circle at 85% 80%, rgba(217,99,58,.08) 0%, transparent 45%),
+      var(--c-bg);
+  }
+
+  [data-theme="dark"] .wk-skeleton{
+    background:linear-gradient(90deg,var(--c-surface-2) 25%,#2C2F34 37%,var(--c-surface-2) 63%);
+    background-size:400% 100%;
+  }
+
+  [data-theme="dark"] table.dataTable,
+  [data-theme="dark"] table.dataTable tbody td,
+  [data-theme="dark"] .dataTables_wrapper .dataTables_info,
+  [data-theme="dark"] .dataTables_wrapper .dataTables_paginate,
+  [data-theme="dark"] .dataTables_wrapper .dataTables_length,
+  [data-theme="dark"] .dataTables_wrapper .dataTables_filter{
+    color:var(--c-text) !important;
+  }
+
+  [data-theme="dark"] .form-control,
+  [data-theme="dark"] .form-select{
+    background-color:var(--c-surface); color:var(--c-text); border-color:var(--c-border);
+  }
+  [data-theme="dark"] .form-control::placeholder{ color:var(--c-text-muted); }
+
+  [data-theme="dark"] .modal-content{ background:var(--c-surface); color:var(--c-text); }
+
+  [data-theme="dark"] .swal2-popup{ background:var(--c-surface) !important; color:var(--c-text) !important; }
+
+  /* Ikon toggle matahari/bulan pada navbar */
+  #wk-theme-toggle .material-icons{ transition:transform .3s ease; }
+  [data-theme="dark"] #wk-theme-toggle .material-icons{ transform:rotate(180deg); }
